@@ -40,7 +40,7 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-addopts = "--cov=testframework --cov-report term --cov-report lcov:lcov.info"
+addopts = "--cov=vera_testframework --cov-report term --cov-report lcov:lcov.info"
 
 [tool.coverage.run]
 omit = [

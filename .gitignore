@@ -163,3 +163,4 @@ cython_debug/
 
 .python-version
 lcov.info
+_version.py

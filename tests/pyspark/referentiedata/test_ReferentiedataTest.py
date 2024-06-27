@@ -1,9 +1,8 @@
 import pytest
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
-from vera_testframework.pyspark import (
-    ReferentiedataTest,  # Adjust the import according to your module structure
-)
+
+# Adjust the import according to your module structure
+from vera_testframework.pyspark import ReferentiedataTest
 
 
 @pytest.fixture(scope="module")
@@ -27,12 +26,11 @@ def ruimten_df(spark):
 def test_referentiedata_valid_code(ruimten_df):
     test = ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code")
 
-    # Get valid codes from referentiedata_df in the test object
+    # Get valid codes from referentiedata in the test object
     valid_codes = set(
         row["Code"]
-        for row in test.referentiedata_df.filter(col("Soort") == "RUIMTEDETAILSOORT")
-        .select("Code")
-        .collect()
+        for row in test.referentiedata
+        if row["Soort"] == "RUIMTEDETAILSOORT"
     )
 
     # Apply the test
@@ -50,12 +48,11 @@ def test_referentiedata_valid_code(ruimten_df):
 def test_referentiedata_valid_naam(ruimten_df):
     test = ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Naam")
 
-    # Get valid names from referentiedata_df in the test object
+    # Get valid names from referentiedata in the test object
     valid_namen = set(
         row["Naam"]
-        for row in test.referentiedata_df.filter(col("Soort") == "RUIMTEDETAILSOORT")
-        .select("Naam")
-        .collect()
+        for row in test.referentiedata
+        if row["Soort"] == "RUIMTEDETAILSOORT"
     )
 
     # Apply the test

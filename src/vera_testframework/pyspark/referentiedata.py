@@ -17,8 +17,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
     with open(
         "src/vera_testframework/data/Referentiedata.csv", newline="", encoding="utf-8"
     ) as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=";")
-        referentiedata = [row for row in reader]
+        referentiedata = [row for row in csv.DictReader(csvfile, delimiter=";")]
 
     def __init__(
         self,

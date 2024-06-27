@@ -1,7 +1,6 @@
+import csv
 from typing import Literal, Optional
 
-import pyspark.sql.functions as F
-from pyspark.sql import SparkSession
 from testframework.dataquality.tests import ValidCategory
 
 
@@ -12,16 +11,14 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
     Args:
         name (Optional[str]): The name of the test. If not provided, defaults to "VERAStandaard".
         soort (str): The type/category of the data, which will be converted to uppercase.
-        attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.d
+        attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.
     """
 
-    spark = SparkSession.builder.appName("vera_testframework").getOrCreate()
-    referentiedata_df = (
-        spark.read.format("csv")
-        .option("header", "true")
-        .option("delimiter", ";")
-        .load("src/vera_testframework/data/Referentiedata.csv")
-    )
+    with open(
+        "src/vera_testframework/data/Referentiedata.csv", newline="", encoding="utf-8"
+    ) as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=";")
+        referentiedata = [row for row in reader]
 
     def __init__(
         self,
@@ -37,18 +34,11 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         super().__init__(name=name, categories=self._categorieen())
 
     def _categorieen(self) -> set[str]:
-        categorieen_rows = (
-            self.referentiedata_df.filter(F.col("Soort") == self.soort)
-            .select(self.attribuut)
-            .distinct()
-            .collect()
-        )
+        categorieen_rows = [
+            row for row in self.referentiedata if row["Soort"] == self.soort
+        ]
         if not categorieen_rows:
-            mogelijke_soorten = [
-                row["Soort"]
-                for row in (self.referentiedata_df.select("Soort").distinct().collect())
-            ]
-
+            mogelijke_soorten = {row["Soort"] for row in self.referentiedata}
             raise ValueError(
                 f"Geen soorten gevonden voor soort '{self.soort}'. Opties zijn: {', '.join(sorted(mogelijke_soorten))}"
             )

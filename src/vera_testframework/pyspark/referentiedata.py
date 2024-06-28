@@ -7,11 +7,14 @@ from testframework.dataquality.tests import ValidCategory
 class ReferentiedataTest(ValidCategory):  # type: ignore
     """
     Initialize a ReferentiedataTest instance.
-
     Args:
         name (Optional[str]): The name of the test. If not provided, defaults to "VERAStandaard".
         soort (str): The type/category of the data, which will be converted to uppercase.
         attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.
+
+    Raises:
+        TypeError: If soort is not a string.
+        ValueError: If attribuut is not "Code" or "Naam".
     """
 
     with open(
@@ -26,8 +29,13 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         soort: str,
         attribuut: Literal["Code", "Naam"],
     ):
-        self.soort = soort
-        self.attribuut = attribuut
+        if not isinstance(soort, str):
+            raise TypeError("soort must be a string")
+        if attribuut not in ["Code", "Naam"]:
+            raise ValueError("attribuut must be either 'Code' or 'Naam'")
+
+        self.soort = soort.upper()
+        self.attribuut = attribuut.capitalize()
 
         name = name if name else "VERAStandaard"
         super().__init__(name=name, categories=self._categorieen())
@@ -43,26 +51,6 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
             )
 
         return {row[self.attribuut] for row in categorieen_rows}
-
-    @property
-    def soort(self) -> str:
-        return self._soort
-
-    @soort.setter
-    def soort(self, value: str) -> None:
-        if not isinstance(value, str):
-            raise TypeError("soort must be a string")
-        self._soort = value.upper()
-
-    @property
-    def attribuut(self) -> str:
-        return self._attribuut
-
-    @attribuut.setter
-    def attribuut(self, value: Literal["Code", "Naam"]) -> None:
-        if value not in ["Code", "Naam"]:
-            raise ValueError("attribuut must be either 'Code' or 'Naam'")
-        self._attribuut = value.capitalize()
 
     def __str__(self) -> str:
         return f"ReferentiedataTest({self.soort}, {self.attribuut})"

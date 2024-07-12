@@ -91,3 +91,10 @@ def test_str_and_repr():
         repr(ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code"))
         == "ReferentiedataTest(RUIMTEDETAILSOORT, Code)"
     )
+
+
+def test_wrong_release_tag():
+    with pytest.raises(Exception):
+        ReferentiedataTest(
+            soort="RUIMTEDETAILSOORT", attribuut="Code", release_tag="invalid"
+        )

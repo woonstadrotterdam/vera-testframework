@@ -1,26 +1,26 @@
-import csv
 from typing import Literal, Optional
 
 from testframework.dataquality.tests import ValidCategory
+
+from vera_testframework.utils import get_csv_from_release
 
 
 class ReferentiedataTest(ValidCategory):  # type: ignore
     """
     Initialize a ReferentiedataTest instance.
+
     Args:
         name (Optional[str]): The name of the test. If not provided, defaults to "VERAStandaard".
         soort (str): The type/category of the data, which will be converted to uppercase.
         attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.
+        release_tag (str): The tag of the release to use. Default is "latest".
 
     Raises:
         TypeError: If soort is not a string.
         ValueError: If attribuut is not "Code" or "Naam".
     """
 
-    with open(
-        "src/vera_testframework/data/Referentiedata.csv", newline="", encoding="utf-8"
-    ) as csvfile:
-        referentiedata = [row for row in csv.DictReader(csvfile, delimiter=";")]
+    _referentiedata_cache: dict[str, list[dict[str, str]]] = {}
 
     def __init__(
         self,
@@ -28,6 +28,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         name: Optional[str] = None,
         soort: str,
         attribuut: Literal["Code", "Naam"],
+        release_tag: str = "latest",
     ):
         if not isinstance(soort, str):
             raise TypeError("soort must be a string")
@@ -38,7 +39,18 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         self.attribuut = attribuut.capitalize()
 
         name = name if name else "VERAStandaard"
+
+        self.referentiedata = self._get_cached_data(release_tag)
         super().__init__(name=name, categories=self._categorieen())
+        self.release_tag = release_tag
+
+    @classmethod
+    def _get_cached_data(cls, release_tag: str) -> list[dict[str, str]]:
+        if release_tag not in cls._referentiedata_cache:
+            cls._referentiedata_cache[release_tag] = get_csv_from_release(
+                release_tag=release_tag
+            )
+        return cls._referentiedata_cache[release_tag]
 
     def _categorieen(self) -> set[str]:
         categorieen_rows = [

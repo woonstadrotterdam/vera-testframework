@@ -24,7 +24,8 @@ requires-python = ">=3.9.5"
 license = {file = "LICENSE"}
 dependencies = [
     # pyspark not specified here because it creates conflicts with databricks.
-    "pyspark-testframework>=2.0.0"
+    "pyspark-testframework>=2.0.0",
+    "requests>=2.0.0"
 ]
 
 [project.optional-dependencies]

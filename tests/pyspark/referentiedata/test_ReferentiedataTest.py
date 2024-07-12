@@ -85,11 +85,11 @@ def test_wrong_type_soort():
 def test_str_and_repr():
     assert (
         str(ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code"))
-        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code)"
+        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=latest)"
     )
     assert (
         repr(ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code"))
-        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code)"
+        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=latest)"
     )
 
 

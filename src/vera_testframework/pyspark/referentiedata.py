@@ -65,7 +65,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         return {row[self.attribuut] for row in categorieen_rows}
 
     def __str__(self) -> str:
-        return f"ReferentiedataTest({self.soort}, {self.attribuut}, {self.release})"
+        return f"ReferentiedataTest({self.soort}, {self.attribuut}, v={self.release})"
 
     def __repr__(self) -> str:
         return self.__str__()

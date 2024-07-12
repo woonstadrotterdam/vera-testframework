@@ -96,5 +96,5 @@ def test_str_and_repr():
 def test_wrong_release_tag():
     with pytest.raises(Exception):
         ReferentiedataTest(
-            soort="RUIMTEDETAILSOORT", attribuut="Code", release_tag="invalid"
+            soort="RUIMTEDETAILSOORT", attribuut="Code", release="invalid"
         )

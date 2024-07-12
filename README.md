@@ -51,7 +51,7 @@ testframework.test(
     test=ReferentiedataTest(
         soort="RUIMTEDETAILSOORT",
         attribuut="Code",
-        release_tag="latest",  # standaard is latest, maar kan ook een specifieke versie zijn zoals v4.1.240419
+        release="latest",  # standaard is latest, maar kan ook een specifieke versie zijn zoals v4.1.240419
     ),
     nullable=False,  # of een waarde leeg mag zijn. Dit is aan de gebruiker
 ).show()

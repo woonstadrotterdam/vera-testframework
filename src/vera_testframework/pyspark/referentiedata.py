@@ -13,7 +13,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         name (Optional[str]): The name of the test. If not provided, defaults to "VERAStandaard".
         soort (str): The type/category of the data, which will be converted to uppercase.
         attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.
-        release_tag (str): The tag of the release to use. Default is "latest".
+        release (str): The tag of the release to use. Default is "latest".
 
     Raises:
         TypeError: If soort is not a string.
@@ -28,7 +28,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         name: Optional[str] = None,
         soort: str,
         attribuut: Literal["Code", "Naam"],
-        release_tag: str = "latest",
+        release: str = "latest",
     ):
         if not isinstance(soort, str):
             raise TypeError("soort must be a string")
@@ -40,9 +40,9 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
 
         name = name if name else "VERAStandaard"
 
-        self.referentiedata = self._get_cached_data(release_tag)
+        self.referentiedata = self._get_cached_data(release)
         super().__init__(name=name, categories=self._categorieen())
-        self.release_tag = release_tag
+        self.release = release
 
     @classmethod
     def _get_cached_data(cls, release_tag: str) -> list[dict[str, str]]:
@@ -65,7 +65,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         return {row[self.attribuut] for row in categorieen_rows}
 
     def __str__(self) -> str:
-        return f"ReferentiedataTest({self.soort}, {self.attribuut})"
+        return f"ReferentiedataTest({self.soort}, {self.attribuut}, {self.release})"
 
     def __repr__(self) -> str:
         return self.__str__()

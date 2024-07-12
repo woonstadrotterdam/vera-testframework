@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/pyspark-testframework
+      url: https://test.pypi.org/p/vera-testframework
     permissions:
       id-token: write # IMPORTANT: mandatory for trusted publishing
 
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/pyspark-testframework
+      url: https://pypi.org/p/vera-testframework
     permissions:
       id-token: write # IMPORTANT: mandatory for trusted publishing
 

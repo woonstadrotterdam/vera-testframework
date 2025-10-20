@@ -9,6 +9,10 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
     """
     Initialize a ReferentiedataTest instance.
 
+    This test validates that column values match the VERA referentiedata standard.
+    Results are returned in long-format with columns: primary_key, test_name, test_col,
+    test_value, test_result, test_description.
+
     Args:
         name (Optional[str]): The name of the test. If not provided, defaults to "VERAStandaard".
         soort (str): The type/category of the data, which will be converted to uppercase.
@@ -38,7 +42,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         self.soort = soort.upper()
         self.attribuut = attribuut.capitalize()
 
-        name = name if name else "VERAStandaard"
+        name = name if name else f"VERA_{self.soort}_{self.attribuut}"
 
         self.referentiedata = self._get_cached_data(release)
         super().__init__(name=name, categories=self._categorieen())

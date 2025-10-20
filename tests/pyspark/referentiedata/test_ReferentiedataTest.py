@@ -36,13 +36,37 @@ def test_referentiedata_valid_code(ruimten_df):
     # Apply the test
     result_df = test.test(ruimten_df, "code", "id", False)
 
-    # Collect the results
-    results = result_df.select("code", "code__VERAStandaard").collect()
-    for row in results:
-        if row["code"] is not None:
-            assert (row["code"] in valid_codes) == row["code__VERAStandaard"]
-        else:
-            assert row["code__VERAStandaard"] is False
+    # Expect canonical long-format columns
+    expected_columns = {
+        "primary_key",
+        "test_name",
+        "test_col",
+        "test_value",
+        "test_result",
+        "test_description",
+    }
+    assert expected_columns.issubset(set(result_df.columns))
+
+    # Collect the results and validate against ground truth
+    results = result_df.collect()
+    rows_by_pk = {row["primary_key"]: row for row in results}
+
+    # Get original data for comparison
+    original_data = ruimten_df.select("id", "code").collect()
+    for row in original_data:
+        pk = row["id"]  # Keep as integer to match the result format
+        code = row["code"]
+        expected_ok = (code in valid_codes) if code is not None else False
+
+        assert pk in rows_by_pk, f"Primary key {pk} not found in results"
+        result_row = rows_by_pk[pk]
+
+        assert result_row["test_result"] == expected_ok
+        assert result_row["test_name"] == "code__VERA_RUIMTEDETAILSOORT_Code"
+        assert result_row["test_col"] == "code"
+        # Handle None values correctly - Spark returns None for null values
+        expected_value = str(code) if code is not None else None
+        assert result_row["test_value"] == expected_value
 
 
 def test_referentiedata_valid_naam(ruimten_df):
@@ -58,13 +82,37 @@ def test_referentiedata_valid_naam(ruimten_df):
     # Apply the test
     result_df = test.test(ruimten_df, "naam", "id", False)
 
-    # Collect the results
-    results = result_df.select("naam", "naam__VERAStandaard").collect()
-    for row in results:
-        if row["naam"] is not None:
-            assert (row["naam"] in valid_namen) == row["naam__VERAStandaard"]
-        else:
-            assert row["naam__VERAStandaard"] is False
+    # Expect canonical long-format columns
+    expected_columns = {
+        "primary_key",
+        "test_name",
+        "test_col",
+        "test_value",
+        "test_result",
+        "test_description",
+    }
+    assert expected_columns.issubset(set(result_df.columns))
+
+    # Collect the results and validate against ground truth
+    results = result_df.collect()
+    rows_by_pk = {row["primary_key"]: row for row in results}
+
+    # Get original data for comparison
+    original_data = ruimten_df.select("id", "naam").collect()
+    for row in original_data:
+        pk = row["id"]  # Keep as integer to match the result format
+        naam = row["naam"]
+        expected_ok = (naam in valid_namen) if naam is not None else False
+
+        assert pk in rows_by_pk, f"Primary key {pk} not found in results"
+        result_row = rows_by_pk[pk]
+
+        assert result_row["test_result"] == expected_ok
+        assert result_row["test_name"] == "naam__VERA_RUIMTEDETAILSOORT_Naam"
+        assert result_row["test_col"] == "naam"
+        # Handle None values correctly - Spark returns None for null values
+        expected_value = str(naam) if naam is not None else None
+        assert result_row["test_value"] == expected_value
 
 
 def test_referentiedata_invalid_soort():

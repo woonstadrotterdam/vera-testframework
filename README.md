@@ -57,16 +57,16 @@ testframework.test(
 ).show(truncate=False)
 ```
 
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
-    |primary_key|test_name                        |test_result|test_value|test_description           |test_col|
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
-    |1          |code__VERA_RUIMTEDETAILSOORT_Code|true       |LOG       |VERA_RUIMTEDETAILSOORT_Code|code    |
-    |2          |code__VERA_RUIMTEDETAILSOORT_Code|true       |WOO       |VERA_RUIMTEDETAILSOORT_Code|code    |
-    |3          |code__VERA_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_RUIMTEDETAILSOORT_Code|code    |
-    |4          |code__VERA_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_RUIMTEDETAILSOORT_Code|code    |
-    |5          |code__VERA_RUIMTEDETAILSOORT_Code|false      |NULL      |VERA_RUIMTEDETAILSOORT_Code|code    |
-    |6          |code__VERA_RUIMTEDETAILSOORT_Code|true       |SLA       |VERA_RUIMTEDETAILSOORT_Code|code    |
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
+    +-----------+----------------------------------------+-----------+----------+----------------------------------+--------+
+    |primary_key|test_name                               |test_result|test_value|test_description                  |test_col|
+    +-----------+----------------------------------------+-----------+----------+----------------------------------+--------+
+    |1          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |LOG       |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    |2          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |WOO       |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    |3          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    |4          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    |5          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|false      |NULL      |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    |6          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |SLA       |VERA_LATEST_RUIMTEDETAILSOORT_Code|code    |
+    +-----------+----------------------------------------+-----------+----------+----------------------------------+--------+
 
 ```python
 testframework.test(
@@ -76,19 +76,20 @@ testframework.test(
         attribuut="Naam",
     ),
     nullable=True,
+    description="Naam van ruimtedetailsoort voldoet aan de VERA-standaard"
 ).show(truncate=False)
 ```
 
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
-    |primary_key|test_name                        |test_result|test_value|test_description           |test_col|
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
-    |1          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Loggia    |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    |2          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Woonkamer |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    |3          |naam__VERA_RUIMTEDETAILSOORT_Naam|false      |Badruimte |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    |4          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Badkamer  |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    |5          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Kelder    |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    |6          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |NULL      |VERA_RUIMTEDETAILSOORT_Naam|naam    |
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+
+    |primary_key|test_name                               |test_result|test_value|test_description                                        |test_col|
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+
+    |1          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Loggia    |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    |2          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Woonkamer |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    |3          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|false      |Badruimte |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    |4          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Badkamer  |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    |5          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Kelder    |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    |6          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |NULL      |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+
 
 **De resultaten van de testen zijn te vinden in de `.results` attribuut van de `DataFrameTester`.**
 
@@ -96,22 +97,22 @@ testframework.test(
 testframework.results.show(truncate=False)
 ```
 
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+---------------+-----------------------+
-    |primary_key|test_name                        |test_result|test_value|test_description           |test_col|primary_key_col|timestamp              |
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+---------------+-----------------------+
-    |1          |code__VERA_RUIMTEDETAILSOORT_Code|true       |LOG       |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |2          |code__VERA_RUIMTEDETAILSOORT_Code|true       |WOO       |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |3          |code__VERA_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |4          |code__VERA_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |5          |code__VERA_RUIMTEDETAILSOORT_Code|false      |NULL      |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |6          |code__VERA_RUIMTEDETAILSOORT_Code|true       |SLA       |VERA_RUIMTEDETAILSOORT_Code|code    |id             |2025-10-20 20:18:55.579|
-    |1          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Loggia    |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    |2          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Woonkamer |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    |3          |naam__VERA_RUIMTEDETAILSOORT_Naam|false      |Badruimte |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    |4          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Badkamer  |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    |5          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |Kelder    |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    |6          |naam__VERA_RUIMTEDETAILSOORT_Naam|true       |NULL      |VERA_RUIMTEDETAILSOORT_Naam|naam    |id             |2025-10-20 20:18:55.579|
-    +-----------+---------------------------------+-----------+----------+---------------------------+--------+---------------+-----------------------+
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+---------------+-----------------------+
+    |primary_key|test_name                               |test_result|test_value|test_description                                        |test_col|primary_key_col|timestamp              |
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+---------------+-----------------------+
+    |1          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |LOG       |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |2          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |WOO       |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |3          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |4          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |BAD       |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |5          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|false      |NULL      |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |6          |code__VERA_LATEST_RUIMTEDETAILSOORT_Code|true       |SLA       |VERA_LATEST_RUIMTEDETAILSOORT_Code                      |code    |id             |2025-10-21 15:58:35.475|
+    |1          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Loggia    |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    |2          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Woonkamer |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    |3          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|false      |Badruimte |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    |4          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Badkamer  |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    |5          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |Kelder    |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    |6          |naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam|true       |NULL      |Naam van ruimtedetailsoort voldoet aan de VERA-standaard|naam    |id             |2025-10-21 15:58:35.475|
+    +-----------+----------------------------------------+-----------+----------+--------------------------------------------------------+--------+---------------+-----------------------+
 
 **Voor meer informatie over hoe het _pyspark-testframework_ te gebruiken, raadpleeg de documentatie op [hun Github](https://github.com/woonstadrotterdam/pyspark-testframework)**
 

@@ -41,12 +41,11 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
 
         self.soort = soort.upper()
         self.attribuut = attribuut.capitalize()
-
-        name = name if name else f"VERA_{self.soort}_{self.attribuut}"
+        self.release = release.upper()
+        name = name if name else f"VERA_{self.release}_{self.soort}_{self.attribuut}"
 
         self.referentiedata = self._get_cached_data(release)
         super().__init__(name=name, categories=self._categorieen())
-        self.release = release
 
     @classmethod
     def _get_cached_data(cls, release_tag: str) -> list[dict[str, str]]:

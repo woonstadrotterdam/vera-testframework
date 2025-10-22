@@ -62,7 +62,7 @@ def test_referentiedata_valid_code(ruimten_df):
         result_row = rows_by_pk[pk]
 
         assert result_row["test_result"] == expected_ok
-        assert result_row["test_name"] == "code__VERA_RUIMTEDETAILSOORT_Code"
+        assert result_row["test_name"] == "code__VERA_LATEST_RUIMTEDETAILSOORT_Code"
         assert result_row["test_col"] == "code"
         # Handle None values correctly - Spark returns None for null values
         expected_value = str(code) if code is not None else None
@@ -108,7 +108,7 @@ def test_referentiedata_valid_naam(ruimten_df):
         result_row = rows_by_pk[pk]
 
         assert result_row["test_result"] == expected_ok
-        assert result_row["test_name"] == "naam__VERA_RUIMTEDETAILSOORT_Naam"
+        assert result_row["test_name"] == "naam__VERA_LATEST_RUIMTEDETAILSOORT_Naam"
         assert result_row["test_col"] == "naam"
         # Handle None values correctly - Spark returns None for null values
         expected_value = str(naam) if naam is not None else None
@@ -133,11 +133,11 @@ def test_wrong_type_soort():
 def test_str_and_repr():
     assert (
         str(ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code"))
-        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=latest)"
+        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=LATEST)"
     )
     assert (
         repr(ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code"))
-        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=latest)"
+        == "ReferentiedataTest(RUIMTEDETAILSOORT, Code, v=LATEST)"
     )
 
 

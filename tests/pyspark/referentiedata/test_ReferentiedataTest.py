@@ -115,6 +115,38 @@ def test_referentiedata_valid_naam(ruimten_df):
         assert result_row["test_value"] == expected_value
 
 
+def test_referentiedata_case_sensitive_default(spark):
+    df = spark.createDataFrame(
+        [(1, "LOG"), (2, "log")],
+        ["id", "code"],
+    )
+    test = ReferentiedataTest(soort="RUIMTEDETAILSOORT", attribuut="Code")
+    result_df = test.test(df, "code", "id", False)
+    results = {row["primary_key"]: row["test_result"] for row in result_df.collect()}
+
+    assert test.case_sensitive is True
+    assert results[1] is True
+    assert results[2] is False
+
+
+def test_referentiedata_case_insensitive(spark):
+    df = spark.createDataFrame(
+        [(1, "LOG"), (2, "log")],
+        ["id", "code"],
+    )
+    test = ReferentiedataTest(
+        soort="RUIMTEDETAILSOORT",
+        attribuut="Code",
+        case_sensitive=False,
+    )
+    result_df = test.test(df, "code", "id", False)
+    results = {row["primary_key"]: row["test_result"] for row in result_df.collect()}
+
+    assert test.case_sensitive is False
+    assert results[1] is True
+    assert results[2] is True
+
+
 def test_referentiedata_invalid_soort():
     with pytest.raises(ValueError):
         ReferentiedataTest(soort="INVALID", attribuut="Code")

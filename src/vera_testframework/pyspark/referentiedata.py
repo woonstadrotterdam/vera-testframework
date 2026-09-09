@@ -18,6 +18,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         soort (str): The type/category of the data, which will be converted to uppercase.
         attribuut (Literal["Code", "Naam"]): The attribute to use, either "Code" or "Naam". It will be capitalized.
         release (str): The tag of the release to use. Default is "latest".
+        case_sensitive (bool): Whether to perform case-sensitive comparison (default: True).
 
     Raises:
         TypeError: If soort is not a string.
@@ -33,6 +34,7 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         soort: str,
         attribuut: Literal["Code", "Naam"],
         release: str = "latest",
+        case_sensitive: bool = True,
     ):
         if not isinstance(soort, str):
             raise TypeError("soort must be a string")
@@ -45,7 +47,11 @@ class ReferentiedataTest(ValidCategory):  # type: ignore
         name = name if name else f"VERA_{self.release}_{self.soort}_{self.attribuut}"
 
         self.referentiedata = self._get_cached_data(release)
-        super().__init__(name=name, categories=self._categorieen())
+        super().__init__(
+            name=name,
+            categories=self._categorieen(),
+            case_sensitive=case_sensitive,
+        )
 
     @classmethod
     def _get_cached_data(cls, release_tag: str) -> list[dict[str, str]]:
